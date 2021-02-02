@@ -55,3 +55,14 @@ end loop;
 end;
 
 select * from s;
+
+CREATE OR REPLACE TRIGGER trg_tue
+BEFORE INSERT OR UPDATE OR DELETE ON s
+FOR EACH ROW
+BEGIN
+    IF TO_CHAR(SYSDATE, 'D') = '3' THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Cannot insert record on TUESDAY'); 
+    END IF;
+END;
+
+AFTER TRIGGER WE ARE NOT ABLE TO DML *-*
